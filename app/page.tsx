@@ -1,65 +1,195 @@
-import Image from "next/image";
+import Link from "next/link";
+import Nav from "./components/Nav";
+import FiguresOrbit from "./components/FiguresOrbit";
+
+const products = [
+  {
+    id: 1,
+    name: "The Process Tee",
+    excerpt:
+      "A garment about showing up. About the 5am session when no one is watching. About doing the work for the work itself.",
+  },
+  {
+    id: 2,
+    name: "Refusal",
+    excerpt:
+      "For everyone who chose the harder path. Who said no to shortcuts and yes to something that actually matters.",
+  },
+  {
+    id: 3,
+    name: "The Long Game",
+    excerpt:
+      "Some things take years. This piece is for those building something they'll be proud of long after the trend cycle has moved on.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <>
+      <Nav />
+
+      {/* HERO + FIGURES ORBIT */}
+      <FiguresOrbit />
+
+      {/* COLLECTION PREVIEW */}
+      <section
+        style={{
+          backgroundColor: "#F4EFE4",
+          padding: "7rem 2rem",
+        }}
+      >
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "baseline",
+              marginBottom: "4rem",
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <h2
+              style={{
+                fontFamily: "var(--font-cormorant)",
+                fontSize: "clamp(2rem, 5vw, 3.5rem)",
+                fontWeight: 600,
+                color: "#1C1917",
+                margin: 0,
+              }}
+            >
+              The Work.
+            </h2>
+            <Link
+              href="/collection"
+              style={{
+                fontFamily: "var(--font-space)",
+                fontSize: "0.7rem",
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "#B91C1C",
+                textDecoration: "none",
+              }}
+            >
+              View all →
+            </Link>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "2rem",
+            }}
           >
-            Documentation
-          </a>
+            {products.map((product) => (
+              <Link
+                key={product.id}
+                href="/collection"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <div>
+                  {/* Placeholder image */}
+                  <div
+                    style={{
+                      aspectRatio: "3/4",
+                      backgroundColor: "#E8E0CE",
+                      marginBottom: "1.25rem",
+                      position: "relative",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: "var(--font-space)",
+                          fontSize: "0.65rem",
+                          letterSpacing: "0.2em",
+                          textTransform: "uppercase",
+                          color: "#1C191740",
+                        }}
+                      >
+                        image coming
+                      </span>
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      width: "24px",
+                      height: "1px",
+                      backgroundColor: "#B91C1C",
+                      marginBottom: "0.75rem",
+                    }}
+                  />
+
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-cormorant)",
+                      fontSize: "1.5rem",
+                      fontWeight: 600,
+                      color: "#1C1917",
+                      margin: "0 0 0.5rem",
+                    }}
+                  >
+                    {product.name}
+                  </h3>
+
+                  <p
+                    style={{
+                      fontFamily: "var(--font-space)",
+                      fontSize: "0.8rem",
+                      lineHeight: 1.7,
+                      color: "#1C191780",
+                      margin: 0,
+                    }}
+                  >
+                    {product.excerpt}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer
+        style={{
+          backgroundColor: "#1C1917",
+          padding: "4rem 2rem",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "2rem",
+          textAlign: "center",
+        }}
+      >
+        <div style={{ display: "flex", gap: "2rem" }}>
+          {["Collection", "About"].map((link) => (
+            <Link
+              key={link}
+              href={`/${link.toLowerCase()}`}
+              style={{
+                fontFamily: "var(--font-space)",
+                fontSize: "0.65rem",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "#F4EFE450",
+                textDecoration: "none",
+              }}
+            >
+              {link}
+            </Link>
+          ))}
+        </div>
+      </footer>
+    </>
   );
 }
