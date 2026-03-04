@@ -2,9 +2,28 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+
+const navLinks = [
+  ["Collection", "/collection"],
+  ["Muses", "/muses"],
+  ["About", "/about"],
+];
+
+const linkStyle: React.CSSProperties = {
+  fontFamily: "var(--font-space)",
+  fontSize: "0.75rem",
+  fontWeight: 500,
+  letterSpacing: "0.12em",
+  textTransform: "uppercase",
+  color: "#1C1917",
+  textDecoration: "none",
+};
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -23,45 +42,49 @@ export default function Nav() {
         backgroundColor: "#F4EFE4",
         borderBottom: scrolled ? "1px solid #1C191720" : "1px solid transparent",
         transition: "border-color 0.3s ease",
-        padding: "1rem 2rem",
-        display: "flex",
+        padding: "0 2rem",
+        height: "88px",
+        display: "grid",
+        gridTemplateColumns: "1fr auto 1fr",
         alignItems: "center",
-        justifyContent: "space-between",
       }}
     >
-      <Link
-        href="/"
-        style={{
-          fontFamily: "var(--font-space)",
-          fontSize: "0.75rem",
-          fontWeight: 500,
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-          color: "#1C1917",
-          textDecoration: "none",
-        }}
-      >
-        Home
-      </Link>
-
+      {/* Left */}
       <div style={{ display: "flex", gap: "2.5rem", alignItems: "center" }}>
-        {[["Collection", "/collection"], ["Muses", "/muses"], ["About", "/about"]].map(([label, href]) => (
-          <Link
-            key={label}
-            href={href}
-            style={{
-              fontFamily: "var(--font-space)",
-              fontSize: "0.75rem",
-              fontWeight: 500,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "#1C1917",
-              textDecoration: "none",
-            }}
-          >
-            {label}
+        {isHome ? null : (
+          <>
+            {navLinks.slice(0, 1).map(([label, href]) => (
+              <Link key={label} href={href} style={linkStyle}>{label}</Link>
+            ))}
+          </>
+        )}
+      </div>
+
+      {/* Center */}
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        {isHome ? null : (
+          <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.png"
+              alt="art is dead"
+              style={{ height: "64px", width: "auto", mixBlendMode: "multiply" }}
+            />
           </Link>
-        ))}
+        )}
+      </div>
+
+      {/* Right */}
+      <div style={{ display: "flex", gap: "2.5rem", alignItems: "center", justifyContent: "flex-end" }}>
+        {isHome ? (
+          navLinks.map(([label, href]) => (
+            <Link key={label} href={href} style={linkStyle}>{label}</Link>
+          ))
+        ) : (
+          navLinks.slice(1).map(([label, href]) => (
+            <Link key={label} href={href} style={linkStyle}>{label}</Link>
+          ))
+        )}
       </div>
     </nav>
   );

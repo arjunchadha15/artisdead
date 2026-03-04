@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 const NAMES = [
@@ -39,6 +39,7 @@ const POINTS = NAMES.map((_, i) => {
 });
 
 export default function FiguresOrbit() {
+  const [mounted, setMounted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const flyRef = useRef<HTMLDivElement>(null);
   const backStageRef = useRef<HTMLDivElement>(null);
@@ -98,6 +99,8 @@ export default function FiguresOrbit() {
     };
   }, []);
 
+  useEffect(() => { setMounted(true); }, []);
+
   const nameStyle = (i: number): React.CSSProperties => ({
     position: "absolute",
     transform: `translate3d(${POINTS[i].x}px, ${POINTS[i].y}px, ${POINTS[i].z}px) rotate(${POINTS[i].tilt}deg)`,
@@ -141,7 +144,7 @@ export default function FiguresOrbit() {
         >
           {/* BACK stage — names behind logo */}
           <div ref={backStageRef} style={{ transformStyle: "preserve-3d" }}>
-            {NAMES.map((name, i) => (
+            {mounted && NAMES.map((name, i) => (
               <div
                 key={`back-${name}`}
                 ref={(el) => { backNameRefs.current[i] = el; }}
@@ -190,7 +193,7 @@ export default function FiguresOrbit() {
           style={{ position: "relative", width: 0, height: 0, transformStyle: "preserve-3d" }}
         >
           <div ref={frontStageRef} style={{ transformStyle: "preserve-3d" }}>
-            {NAMES.map((name, i) => (
+            {mounted && NAMES.map((name, i) => (
               <div
                 key={`front-${name}`}
                 ref={(el) => { frontNameRefs.current[i] = el; }}

@@ -1,27 +1,14 @@
 import Link from "next/link";
 import Nav from "./components/Nav";
 import FiguresOrbit from "./components/FiguresOrbit";
+import { products as allProducts } from "./lib/products";
 
-const products = [
-  {
-    id: 1,
-    name: "The Process Tee",
-    excerpt:
-      "A garment about showing up. About the 5am session when no one is watching. About doing the work for the work itself.",
-  },
-  {
-    id: 2,
-    name: "Refusal",
-    excerpt:
-      "For everyone who chose the harder path. Who said no to shortcuts and yes to something that actually matters.",
-  },
-  {
-    id: 3,
-    name: "The Long Game",
-    excerpt:
-      "Some things take years. This piece is for those building something they'll be proud of long after the trend cycle has moved on.",
-  },
-];
+const products = allProducts.slice(0, 3).map((p) => ({
+  id: p.id,
+  slug: p.slug,
+  name: p.name,
+  excerpt: p.description.slice(0, 120) + "…",
+}));
 
 export default function Home() {
   return (
@@ -83,7 +70,7 @@ export default function Home() {
             {products.map((product) => (
               <Link
                 key={product.id}
-                href="/collection"
+                href={`/collection/${product.slug}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <div>
