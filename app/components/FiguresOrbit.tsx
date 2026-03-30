@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 
 const NAMES = [
   "Kobe Bryant",
@@ -38,7 +37,12 @@ const POINTS = NAMES.map((_, i) => {
   };
 });
 
-export default function FiguresOrbit() {
+interface FiguresOrbitProps {
+  expanded?: boolean;
+  onEnter?: () => void;
+}
+
+export default function FiguresOrbit({ expanded = false, onEnter }: FiguresOrbitProps) {
   const [mounted, setMounted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const flyRef = useRef<HTMLDivElement>(null);
@@ -47,11 +51,15 @@ export default function FiguresOrbit() {
   const backNameRefs = useRef<(HTMLDivElement | null)[]>([]);
   const frontNameRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  const expandedRef = useRef(expanded);
+  useEffect(() => { expandedRef.current = expanded; }, [expanded]);
+
   useEffect(() => {
     let scrollY = 0;
     let rotY = 0;
     let rafId = 0;
     let lastT = 0;
+    let posScale = 1;
 
     const onScroll = () => { scrollY = window.scrollY; };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -61,18 +69,33 @@ export default function FiguresOrbit() {
       lastT = t;
 
       rotY += 12 * dt;
-
       const rotYRad = (rotY * Math.PI) / 180;
 
-      // Update which names are in front vs behind logo
+      // Lerp orbit radius outward when expanded
+      const targetScale = expandedRef.current ? 1.6 : 1;
+      posScale += (targetScale - posScale) * 0.03;
+
+      // Update each name's 3D position and opacity
+      const targetOpacity = expandedRef.current ? 0.28 : null;
       NAMES.forEach((_, i) => {
         const p = POINTS[i];
-        const effectiveZ = -p.x * Math.sin(rotYRad) + p.z * Math.cos(rotYRad);
+        const x = p.x * posScale;
+        const y = p.y * posScale;
+        const z = p.z * posScale;
+        const transform = `translate3d(${x}px, ${y}px, ${z}px) rotate(${p.tilt}deg)`;
+        const opacity = String(targetOpacity ?? p.opacity);
+
+        const effectiveZ = -x * Math.sin(rotYRad) + z * Math.cos(rotYRad);
         const inFront = effectiveZ > 0;
+
         if (backNameRefs.current[i]) {
+          backNameRefs.current[i]!.style.transform = transform;
+          backNameRefs.current[i]!.style.opacity = opacity;
           backNameRefs.current[i]!.style.visibility = inFront ? "hidden" : "visible";
         }
         if (frontNameRefs.current[i]) {
+          frontNameRefs.current[i]!.style.transform = transform;
+          frontNameRefs.current[i]!.style.opacity = opacity;
           frontNameRefs.current[i]!.style.visibility = inFront ? "visible" : "hidden";
         }
       });
@@ -119,10 +142,13 @@ export default function FiguresOrbit() {
     <section
       ref={sectionRef}
       style={{
-        height: "100vh",
+        height: expanded ? "100vh" : "100vh",
         backgroundColor: "#F4EFE4",
-        position: "relative",
+        position: expanded ? "fixed" : "relative",
+        inset: expanded ? 0 : undefined,
+        zIndex: expanded ? 20 : undefined,
         overflow: "hidden",
+        transition: "opacity 0.4s ease",
       }}
     >
       {/* Perspective container — shifted down 30px to account for nav */}
@@ -172,6 +198,8 @@ export default function FiguresOrbit() {
           mixBlendMode: "multiply",
           pointerEvents: "none",
           display: "block",
+          opacity: expanded ? 0 : 1,
+          transition: "opacity 0.5s ease",
         }}
       />
 
@@ -216,29 +244,36 @@ export default function FiguresOrbit() {
         position: "absolute", bottom: 0, left: 0, right: 0, height: "200px",
         background: "linear-gradient(to top, #F4EFE4 0%, transparent 100%)",
         pointerEvents: "none", zIndex: 5,
+        opacity: expanded ? 0 : 1,
+        transition: "opacity 0.4s ease",
       }} />
 
       {/* CTA */}
       <div style={{
         position: "absolute", bottom: "3rem", left: "50%",
         transform: "translateX(-50%)", zIndex: 10, textAlign: "center",
+        opacity: expanded ? 0 : 1,
+        pointerEvents: expanded ? "none" : "auto",
+        transition: "opacity 0.3s ease",
       }}>
-        <Link
-          href="/about"
+        <button
+          onClick={onEnter}
           style={{
             fontFamily: "var(--font-space)",
             fontSize: "0.65rem",
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             color: "#1C1917",
-            textDecoration: "none",
+            background: "none",
+            border: "none",
             borderBottom: "1px solid #1C191740",
             paddingBottom: "2px",
             opacity: 0.45,
+            cursor: "pointer",
           }}
         >
           Enter the story →
-        </Link>
+        </button>
       </div>
     </section>
   );

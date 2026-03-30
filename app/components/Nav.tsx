@@ -22,6 +22,7 @@ const linkStyle: React.CSSProperties = {
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [storyOpen, setStoryOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
 
@@ -30,6 +31,14 @@ export default function Nav() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    const onStory = (e: Event) => setStoryOpen((e as CustomEvent).detail.open);
+    window.addEventListener("storymode", onStory);
+    return () => window.removeEventListener("storymode", onStory);
+  }, []);
+
+  const showLogo = !isHome || storyOpen;
 
   return (
     <nav
@@ -51,19 +60,21 @@ export default function Nav() {
     >
       {/* Left */}
       <div style={{ display: "flex", gap: "2.5rem", alignItems: "center" }}>
-        {isHome ? null : (
-          <>
-            {navLinks.slice(0, 1).map(([label, href]) => (
-              <Link key={label} href={href} style={linkStyle}>{label}</Link>
-            ))}
-          </>
-        )}
+        {showLogo ? (
+          navLinks.slice(0, 1).map(([label, href]) => (
+            <Link key={label} href={href} style={linkStyle}>{label}</Link>
+          ))
+        ) : null}
       </div>
 
       {/* Center */}
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        {isHome ? null : (
-          <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+        {showLogo ? (
+          <Link
+            href="/"
+            style={{ display: "flex", alignItems: "center" }}
+            onClick={() => window.dispatchEvent(new CustomEvent("closestory"))}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo.png"
@@ -71,17 +82,17 @@ export default function Nav() {
               style={{ height: "64px", width: "auto", mixBlendMode: "multiply" }}
             />
           </Link>
-        )}
+        ) : null}
       </div>
 
       {/* Right */}
       <div style={{ display: "flex", gap: "2.5rem", alignItems: "center", justifyContent: "flex-end" }}>
-        {isHome ? (
-          navLinks.map(([label, href]) => (
+        {showLogo ? (
+          navLinks.slice(1).map(([label, href]) => (
             <Link key={label} href={href} style={linkStyle}>{label}</Link>
           ))
         ) : (
-          navLinks.slice(1).map(([label, href]) => (
+          navLinks.map(([label, href]) => (
             <Link key={label} href={href} style={linkStyle}>{label}</Link>
           ))
         )}
