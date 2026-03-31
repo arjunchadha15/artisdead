@@ -10,6 +10,7 @@ const products = allProducts.slice(0, 3).map((p) => ({
   id: p.id,
   slug: p.slug,
   name: p.name,
+  image: p.image,
   excerpt: p.description.slice(0, 120) + "…",
 }));
 
@@ -101,34 +102,50 @@ export default function HomeClient() {
                 <div>
                   <div
                     style={{
-                      aspectRatio: "3/4",
+                      aspectRatio: "1/1",
                       backgroundColor: "#E8E0CE",
                       marginBottom: "1.25rem",
                       position: "relative",
                       overflow: "hidden",
                     }}
                   >
-                    <div
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <span
+                    {product.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={product.image}
+                        alt={product.name}
                         style={{
-                          fontFamily: "var(--font-space)",
-                          fontSize: "0.65rem",
-                          letterSpacing: "0.2em",
-                          textTransform: "uppercase",
-                          color: "#1C191740",
+                          position: "absolute",
+                          inset: 0,
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "contain",
+                          mixBlendMode: "multiply",
+                        }}
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                       >
-                        image coming
-                      </span>
-                    </div>
+                        <span
+                          style={{
+                            fontFamily: "var(--font-space)",
+                            fontSize: "0.65rem",
+                            letterSpacing: "0.2em",
+                            textTransform: "uppercase",
+                            color: "#1C191740",
+                          }}
+                        >
+                          image coming
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   <div

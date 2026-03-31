@@ -67,24 +67,34 @@ export default async function ProductPage({
             style={{
               position: "sticky",
               top: "120px",
-              aspectRatio: "3/4",
+              aspectRatio: "1/1",
               backgroundColor: "#E8E0CE",
+              overflow: "hidden",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            <span
-              style={{
-                fontFamily: "var(--font-space)",
-                fontSize: "0.65rem",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "#1C191740",
-              }}
-            >
-              image coming
-            </span>
+            {product.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={product.image}
+                alt={product.name}
+                style={{ width: "100%", height: "100%", objectFit: "contain", mixBlendMode: "multiply" }}
+              />
+            ) : (
+              <span
+                style={{
+                  fontFamily: "var(--font-space)",
+                  fontSize: "0.65rem",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "#1C191740",
+                }}
+              >
+                image coming
+              </span>
+            )}
           </div>
 
           {/* RIGHT — details */}

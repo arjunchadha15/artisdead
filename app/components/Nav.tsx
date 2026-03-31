@@ -27,7 +27,7 @@ export default function Nav() {
   const isHome = pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.9);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -49,7 +49,7 @@ export default function Nav() {
         right: 0,
         zIndex: 100,
         backgroundColor: "#F4EFE4",
-        borderBottom: scrolled ? "1px solid #1C191720" : "1px solid transparent",
+        borderBottom: "1px solid transparent",
         transition: "border-color 0.3s ease",
         padding: "0 2rem",
         height: "88px",

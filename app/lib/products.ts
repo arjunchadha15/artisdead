@@ -7,6 +7,7 @@ export const products = [
     description:
       "Most people want the result. Few are willing to fall in love with the process that creates it. This piece is for those who've made peace with the grind — who find something sacred in the repetition, in the hours no one sees, in the work before the work pays off. Wear it as a reminder that showing up is not the obstacle. Showing up is the whole thing.",
     price: "$—",
+    image: "https://files.tapstitch.com/hugepod/material/custom_printing/68222e94d4074e7880ce34bc47173cd3.png",
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const products = [
     description:
       "There is a quiet rebellion in refusing to take the shortcut. In a world that rewards speed and punishes patience, choosing the harder, slower, more intentional path is its own kind of art. This piece is for the ones who said no to the easy version of themselves. Who understand that what you refuse defines you as much as what you pursue.",
     price: "$—",
+    image: "https://files.tapstitch.com/hugepod/material/custom_printing/9abd3181598d4217b692301520d4b61e.png",
   },
   {
     id: 3,
@@ -25,6 +27,7 @@ export const products = [
     description:
       "Some things take years. Decades, even. The painter who spent forty years developing a style. The athlete who trained before they were a name. The writer who rewrote the same chapter until it was true. This piece is a nod to the long arc of meaningful work — to building something that outlasts the moment, the trend, the noise.",
     price: "$—",
+    image: "https://files.tapstitch.com/hugepod/material/custom_printing/4152d3e68bcc4f2885ea25399ce80c16.png",
   },
   {
     id: 4,

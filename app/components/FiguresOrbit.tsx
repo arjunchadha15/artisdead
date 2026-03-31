@@ -16,6 +16,22 @@ const NAMES = [
   "Miles Davis",
   "Serena Williams",
   "Stanley Kubrick",
+  "Kanye West",
+  "Michael Jackson",
+  "Rafael Nadal",
+  "Novak Djokovic",
+  "Kyrie Irving",
+  "Coco Chanel",
+  "Beyoncé",
+  "Muhammad Ali",
+  "Leonardo da Vinci",
+  "Jimi Hendrix",
+  "Pharrell Williams",
+  "David Bowie",
+  "Pink Floyd",
+  "The Beatles",
+  "Madonna",
+  "Donald Glover",
 ];
 
 function sr(seed: number) {
@@ -26,7 +42,7 @@ function sr(seed: number) {
 const POINTS = NAMES.map((_, i) => {
   const phi = Math.acos(1 - (2 * (i + 0.5)) / NAMES.length);
   const theta = Math.PI * (1 + Math.sqrt(5)) * i;
-  const r = 270 + sr(i * 3) * 110;
+  const r = 340 + sr(i * 3) * 130;
   return {
     x: r * Math.sin(phi) * Math.cos(theta),
     y: r * Math.sin(phi) * Math.sin(theta),
@@ -46,6 +62,7 @@ export default function FiguresOrbit({ expanded = false, onEnter }: FiguresOrbit
   const [mounted, setMounted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const flyRef = useRef<HTMLDivElement>(null);
+  const flyFrontRef = useRef<HTMLDivElement>(null);
   const backStageRef = useRef<HTMLDivElement>(null);
   const frontStageRef = useRef<HTMLDivElement>(null);
   const backNameRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -103,7 +120,9 @@ export default function FiguresOrbit({ expanded = false, onEnter }: FiguresOrbit
       if (flyRef.current && sectionRef.current) {
         const sectionTop = sectionRef.current.offsetTop;
         const offset = Math.max(0, scrollY - sectionTop);
-        flyRef.current.style.transform = `translateY(${offset * -2}px)`;
+        const translateY = `translateY(${offset * -0.6}px)`;
+        flyRef.current.style.transform = translateY;
+        if (flyFrontRef.current) flyFrontRef.current.style.transform = translateY;
       }
 
       const tiltX = 12 + Math.sin(t * 0.00035) * 7;
@@ -147,7 +166,7 @@ export default function FiguresOrbit({ expanded = false, onEnter }: FiguresOrbit
         position: expanded ? "fixed" : "relative",
         inset: expanded ? 0 : undefined,
         zIndex: expanded ? 20 : undefined,
-        overflow: "hidden",
+        overflow: "visible",
         transition: "opacity 0.4s ease",
       }}
     >
@@ -162,6 +181,9 @@ export default function FiguresOrbit({ expanded = false, onEnter }: FiguresOrbit
           paddingTop: "20px",
           perspective: "900px",
           perspectiveOrigin: "50% calc(50% + 10px)",
+          zIndex: 200,
+          overflow: "visible",
+          pointerEvents: "none",
         }}
       >
         <div
@@ -200,6 +222,7 @@ export default function FiguresOrbit({ expanded = false, onEnter }: FiguresOrbit
           display: "block",
           opacity: expanded ? 0 : 1,
           transition: "opacity 0.5s ease",
+          zIndex: 300,
         }}
       />
 
@@ -215,9 +238,12 @@ export default function FiguresOrbit({ expanded = false, onEnter }: FiguresOrbit
           perspective: "900px",
           perspectiveOrigin: "50% calc(50% + 10px)",
           pointerEvents: "none",
+          zIndex: 200,
+          overflow: "visible",
         }}
       >
         <div
+          ref={flyFrontRef}
           style={{ position: "relative", width: 0, height: 0, transformStyle: "preserve-3d" }}
         >
           <div ref={frontStageRef} style={{ transformStyle: "preserve-3d" }}>
@@ -251,7 +277,7 @@ export default function FiguresOrbit({ expanded = false, onEnter }: FiguresOrbit
       {/* CTA */}
       <div style={{
         position: "absolute", bottom: "3rem", left: "50%",
-        transform: "translateX(-50%)", zIndex: 10, textAlign: "center",
+        transform: "translateX(-50%)", zIndex: 400, textAlign: "center",
         opacity: expanded ? 0 : 1,
         pointerEvents: expanded ? "none" : "auto",
         transition: "opacity 0.3s ease",
