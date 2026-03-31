@@ -37,7 +37,7 @@ export default function About() {
               fontFamily: "var(--font-cormorant)",
               fontSize: "clamp(3rem, 8vw, 7rem)",
               fontWeight: 700,
-              color: "#F4EFE4",
+              color: "#1C1917",
               margin: 0,
               lineHeight: 0.9,
               letterSpacing: "-0.02em",
