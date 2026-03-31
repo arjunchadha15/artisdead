@@ -190,7 +190,7 @@ export default function HomeClient() {
       {/* FOOTER */}
       <footer
         style={{
-          backgroundColor: "#1C1917",
+          backgroundColor: "#F4EFE4",
           padding: "4rem 2rem",
           display: "flex",
           flexDirection: "column",
@@ -209,7 +209,7 @@ export default function HomeClient() {
                 fontSize: "0.65rem",
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "#F4EFE450",
+                color: "#1C191750",
                 textDecoration: "none",
               }}
             >

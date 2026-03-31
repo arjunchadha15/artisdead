@@ -116,7 +116,7 @@ export default function Muses() {
       {/* Hero */}
       <section
         style={{
-          backgroundColor: "#1C1917",
+          backgroundColor: "#F4EFE4",
           minHeight: "45vh",
           display: "flex",
           alignItems: "flex-end",
@@ -246,7 +246,7 @@ export default function Muses() {
       {/* Footer */}
       <footer
         style={{
-          backgroundColor: "#1C1917",
+          backgroundColor: "#F4EFE4",
           padding: "4rem 2rem",
           display: "flex",
           flexDirection: "column",

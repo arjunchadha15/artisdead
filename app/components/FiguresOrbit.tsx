@@ -286,15 +286,15 @@ export default function FiguresOrbit({ expanded = false, onEnter }: FiguresOrbit
           onClick={onEnter}
           style={{
             fontFamily: "var(--font-space)",
-            fontSize: "0.65rem",
+            fontSize: "0.8rem",
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             color: "#1C1917",
             background: "none",
             border: "none",
-            borderBottom: "1px solid #1C191740",
-            paddingBottom: "2px",
-            opacity: 0.45,
+            borderBottom: "1px solid #1C1917",
+            paddingBottom: "3px",
+            opacity: 1,
             cursor: "pointer",
           }}
         >

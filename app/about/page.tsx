@@ -9,7 +9,7 @@ export default function About() {
       {/* Hero */}
       <section
         style={{
-          backgroundColor: "#1C1917",
+          backgroundColor: "#F4EFE4",
           minHeight: "55vh",
           display: "flex",
           alignItems: "flex-end",
@@ -148,15 +148,44 @@ export default function About() {
               height: "1px",
               backgroundColor: "#B91C1C",
               marginTop: "4rem",
+              marginBottom: "4rem",
             }}
           />
+
+          <p
+            style={{
+              fontFamily: "var(--font-cormorant)",
+              fontStyle: "italic",
+              fontSize: "1.2rem",
+              color: "#1C191760",
+              marginBottom: "2rem",
+            }}
+          >
+            Still with us? Keep going.
+          </p>
+          <Link
+            href="/"
+            style={{
+              fontFamily: "var(--font-space)",
+              fontSize: "0.7rem",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "#F4EFE4",
+              textDecoration: "none",
+              backgroundColor: "#B91C1C",
+              padding: "1rem 2.5rem",
+              display: "inline-block",
+            }}
+          >
+            Talk to the brand →
+          </Link>
         </div>
       </section>
 
       {/* CTA */}
       <section
         style={{
-          backgroundColor: "#1C1917",
+          backgroundColor: "#F4EFE4",
           padding: "7rem 2rem",
           textAlign: "center",
         }}
@@ -167,7 +196,7 @@ export default function About() {
             fontStyle: "italic",
             fontSize: "1.2rem",
             color: "#F4EFE460",
-            marginBottom: "3rem",
+            marginBottom: "1rem",
           }}
         >
           Wear the work.
@@ -188,12 +217,13 @@ export default function About() {
         >
           View the collection →
         </Link>
+
       </section>
 
       {/* Footer */}
       <footer
         style={{
-          backgroundColor: "#111111",
+          backgroundColor: "#F4EFE4",
           padding: "3rem 2rem",
           display: "flex",
           flexDirection: "column",

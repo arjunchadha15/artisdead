@@ -13,7 +13,7 @@ const MAX_INPUT_CHARS = 400;
 export default function StoryChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [turnCount, setTurnCount] = useState(0);
   const [conversationEnded, setConversationEnded] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -141,6 +141,7 @@ export default function StoryChat() {
         }
         .dot:nth-child(2) { animation-delay: 0.2s; }
         .dot:nth-child(3) { animation-delay: 0.4s; }
+        .story-input::placeholder { color: #1C1917; opacity: 0.5; }
       `}</style>
 
       <div className="story-chat">
@@ -193,7 +194,7 @@ export default function StoryChat() {
 
         {/* Input */}
         <div className="story-input-row">
-          <div style={{ height: "1px", backgroundColor: "rgba(28, 25, 23, 0.12)" }} />
+          <div style={{ height: "1px", backgroundColor: "#1C1917" }} />
           <form
             onSubmit={handleSubmit}
             style={{
@@ -208,6 +209,7 @@ export default function StoryChat() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value.slice(0, MAX_INPUT_CHARS))}
+              className="story-input"
               placeholder={conversationEnded ? "this conversation has found its end." : "say something..."}
               disabled={loading || conversationEnded}
               style={{
@@ -215,10 +217,10 @@ export default function StoryChat() {
                 background: "transparent",
                 border: "none",
                 outline: "none",
-                fontFamily: "var(--font-space)",
-                fontSize: "0.85rem",
+                fontFamily: "var(--font-cormorant)",
+                fontSize: "clamp(1.15rem, 3vw, 1.35rem)",
                 color: "#1C1917",
-                letterSpacing: "0.01em",
+                lineHeight: 1.65,
               }}
             />
             {!conversationEnded && (

@@ -213,7 +213,7 @@ export default function Collection() {
       {/* Footer */}
       <footer
         style={{
-          backgroundColor: "#1C1917",
+          backgroundColor: "#F4EFE4",
           padding: "3rem 2rem",
           display: "flex",
           flexDirection: "column",
