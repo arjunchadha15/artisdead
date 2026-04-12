@@ -186,38 +186,6 @@ export default function HomeClient() {
           </div>
         </div>
       </section>
-
-      {/* FOOTER */}
-      <footer
-        style={{
-          backgroundColor: "#F4EFE4",
-          padding: "4rem 2rem",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "2rem",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ display: "flex", gap: "2rem" }}>
-          {["Collection", "About"].map((link) => (
-            <Link
-              key={link}
-              href={`/${link.toLowerCase()}`}
-              style={{
-                fontFamily: "var(--font-space)",
-                fontSize: "0.65rem",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "#1C191750",
-                textDecoration: "none",
-              }}
-            >
-              {link}
-            </Link>
-          ))}
-        </div>
-      </footer>
     </>
   );
 }

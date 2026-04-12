@@ -5,9 +5,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
-  ["Collection", "/collection"],
   ["Muses", "/muses"],
-  ["About", "/about"],
 ];
 
 const linkStyle: React.CSSProperties = {
