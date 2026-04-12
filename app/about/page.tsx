@@ -1,20 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import Nav from "../components/Nav";
 
-type TooltipKey = "muses" | "practice" | null;
+/* ─── interactive phrase ─────────────────────────────────── */
 
-const tooltipContent: Record<Exclude<TooltipKey, null>, { text: string; href: string }> = {
+type TooltipKey = "muses" | null;
+
+const tooltipContent = {
   muses: {
     text: "Kobe. Frida. Miles. Tubman. People who gave everything to what they loved.",
     href: "/muses",
-  },
-  practice: {
-    text: "A practice. Fifteen years from now. What did you walk away from?",
-    href: "/practice",
   },
 };
 
@@ -25,7 +23,7 @@ function InteractivePhrase({
   onLeave,
   children,
 }: {
-  id: Exclude<TooltipKey, null>;
+  id: "muses";
   active: TooltipKey;
   onEnter: () => void;
   onLeave: () => void;
@@ -41,9 +39,9 @@ function InteractivePhrase({
         onMouseEnter={onEnter}
         onMouseLeave={onLeave}
         style={{
-          color: isActive ? "#B91C1C" : "inherit",
+          color: isActive ? "#B91C1C" : "#C0524A",
           textDecoration: "none",
-          borderBottom: `1px dotted ${isActive ? "#B91C1C" : "#1C191745"}`,
+          borderBottom: `1px dotted ${isActive ? "#B91C1C" : "#C0524A90"}`,
           transition: "color 0.2s, border-color 0.2s",
           cursor: "pointer",
         }}
@@ -77,12 +75,423 @@ function InteractivePhrase({
   );
 }
 
+/* ─── close-your-eyes phrase ─────────────────────────────── */
+
+function CloseYourEyes({
+  onActivate,
+  children,
+}: {
+  onActivate: (origin: { x: number; y: number }) => void;
+  children: ReactNode;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [hovered, setHovered] = useState(false);
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    onActivate({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
+  };
+
+  return (
+    <span
+      ref={ref}
+      onClick={handleClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        color: hovered ? "#B91C1C" : "#C0524A",
+        textDecoration: "none",
+        borderBottom: `1px dotted ${hovered ? "#B91C1C" : "#C0524A90"}`,
+        transition: "color 0.2s, border-color 0.2s",
+        cursor: "pointer",
+        display: "inline",
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+/* ─── star overlay ───────────────────────────────────────── */
+
+interface StarParticle {
+  x: number; y: number;
+  vx: number; vy: number;
+  size: number;
+  opacity: number;
+  maxOpacity: number;
+  twinkle: number;
+  drift: number;
+  driftPhase: number;
+}
+
+type Phase = "exploding" | "floating" | "imploding";
+
+function StarOverlay({
+  origin,
+  onClose,
+}: {
+  origin: { x: number; y: number };
+  onClose: () => void;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const bgOpacity = useRef(0);
+  const phase = useRef<Phase>("exploding");
+  const implodeStart = useRef(0);
+  const rafRef = useRef(0);
+  const stars = useRef<StarParticle[]>([]);
+  const t = useRef(0);
+  const closed = useRef(false);
+  const bgRef = useRef<HTMLDivElement>(null);
+
+  const startClose = useCallback(() => {
+    if (phase.current === "imploding") return;
+    phase.current = "imploding";
+    implodeStart.current = t.current;
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d")!;
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const W = canvas.width;
+    const H = canvas.height;
+    const N = 280;
+    const list: StarParticle[] = [];
+
+    for (let i = 0; i < N; i++) {
+      // Spread stars to reach every corner — pick a random final destination
+      // across the full viewport, then compute direction + enough speed to get there
+      const destX = Math.random() * W;
+      const destY = Math.random() * H;
+      const dx = destX - origin.x;
+      const dy = destY - origin.y;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      // velocity that will place star near dest after ~90 frames with 0.93 friction
+      // sum of geometric series: v * (1 - 0.93^90) / (1-0.93) ≈ v * 13.7
+      const v = dist / 13.7;
+      list.push({
+        x: origin.x,
+        y: origin.y,
+        vx: (dx / dist) * v * (0.8 + Math.random() * 0.4),
+        vy: (dy / dist) * v * (0.8 + Math.random() * 0.4),
+        size: 0.5 + Math.random() * 2.4,
+        opacity: 0,
+        maxOpacity: 0.3 + Math.random() * 0.7,
+        twinkle: Math.random() * Math.PI * 2,
+        drift: 0.08 + Math.random() * 0.22,
+        driftPhase: Math.random() * Math.PI * 2,
+      });
+    }
+    stars.current = list;
+
+    const animate = () => {
+      t.current++;
+      const ti = t.current;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (phase.current === "exploding") {
+        bgOpacity.current = Math.min(1, bgOpacity.current + 0.045);
+        for (const s of list) {
+          s.x += s.vx;
+          s.y += s.vy;
+          s.vx *= 0.93;
+          s.vy *= 0.93;
+          s.opacity = Math.min(s.maxOpacity, s.opacity + 0.02);
+        }
+        if (ti > 110) phase.current = "floating";
+      } else if (phase.current === "floating") {
+        for (const s of list) {
+          s.x += Math.cos(ti * s.drift * 0.01 + s.driftPhase) * 0.3;
+          s.y += Math.sin(ti * s.drift * 0.008 + s.driftPhase * 1.4) * 0.3;
+          s.opacity = s.maxOpacity * (0.55 + 0.45 * Math.sin(ti * 0.035 + s.twinkle));
+        }
+      } else if (phase.current === "imploding") {
+        const elapsed = ti - implodeStart.current;
+        const pull = 0.05 + elapsed * 0.002;
+        bgOpacity.current = Math.max(0, bgOpacity.current - 0.04);
+        let allClose = true;
+        for (const s of list) {
+          const dx = origin.x - s.x;
+          const dy = origin.y - s.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          s.x += dx * pull;
+          s.y += dy * pull;
+          s.opacity = Math.max(0, s.opacity - 0.018);
+          if (dist > 8) allClose = false;
+        }
+        if (allClose || bgOpacity.current <= 0) {
+          if (!closed.current) {
+            closed.current = true;
+            cancelAnimationFrame(rafRef.current);
+            onClose();
+          }
+          return;
+        }
+      }
+
+      // origin glow burst
+      if (phase.current === "exploding" && ti < 50) {
+        const glow = ctx.createRadialGradient(origin.x, origin.y, 0, origin.x, origin.y, 120);
+        const a = (1 - ti / 50) * 0.55;
+        glow.addColorStop(0, `rgba(255,210,160,${a})`);
+        glow.addColorStop(1, "rgba(255,210,160,0)");
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+      for (const s of list) {
+        if (s.opacity <= 0) continue;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,250,235,${s.opacity})`;
+        ctx.fill();
+        if (s.size > 1.6) {
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.size * 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255,245,220,${s.opacity * 0.1})`;
+          ctx.fill();
+        }
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    rafRef.current = requestAnimationFrame(animate);
+    return () => {
+      window.removeEventListener("resize", resize);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, [origin, onClose]);
+
+  // sync bg color from ref
+  useEffect(() => {
+    let r = 0;
+    const tick = () => {
+      if (bgRef.current) bgRef.current.style.backgroundColor = `rgba(4,4,20,${bgOpacity.current})`;
+      r = requestAnimationFrame(tick);
+    };
+    r = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(r);
+  }, []);
+
+  return (
+    <div
+      ref={bgRef}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 500,
+        backgroundColor: "rgba(4,4,20,0)",
+        overflowY: "auto",
+      }}
+    >
+      {/* stars canvas — fixed so it stays behind content while scrolling */}
+      <canvas
+        ref={canvasRef}
+        style={{ position: "fixed", inset: 0, display: "block", pointerEvents: "none" }}
+      />
+
+      {/* practice content */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          maxWidth: "600px",
+          margin: "0 auto",
+          padding: "15vh 2rem 15vh",
+          display: "flex",
+          flexDirection: "column",
+          gap: "8vh",
+        }}
+      >
+        <div>
+          <p style={{
+            fontFamily: "var(--font-space)",
+            fontSize: "0.65rem",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            color: "#F4EFE430",
+            margin: "0 0 2rem",
+          }}>
+            A practice
+          </p>
+          <h1 style={{
+            fontFamily: "var(--font-cormorant)",
+            fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+            fontWeight: 700,
+            color: "#F4EFE4",
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
+            margin: 0,
+          }}>
+            Close your eyes.
+          </h1>
+        </div>
+
+        <p style={{
+          fontFamily: "var(--font-cormorant)",
+          fontStyle: "italic",
+          fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
+          lineHeight: 1.7,
+          color: "#F4EFE460",
+          margin: 0,
+        }}>
+          Find somewhere quiet. Give yourself two minutes. This only works if
+          you actually do it.
+        </p>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
+          {[
+            "You are fifteen years from now. You are older. The world kept moving and you moved with it. But somewhere along the way, you stopped. The thing you wanted to do — the thing you kept thinking about late at night, the thing that felt too risky, too unrealistic, too inconvenient — you let it go.",
+            "Not in one moment. Slowly. The way you let most things go.",
+          ].map((text, i) => (
+            <p key={i} style={{
+              fontFamily: "var(--font-space)",
+              fontSize: "0.9rem",
+              lineHeight: 2,
+              color: "#F4EFE470",
+              margin: 0,
+            }}>{text}</p>
+          ))}
+        </div>
+
+        <div style={{ width: "30px", height: "1px", backgroundColor: "#B91C1C" }} />
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
+          {[
+            "Think about what that thing was. Think about all the small moments you chose against it. The times you told yourself later. The times the fear was louder than the want.",
+            "You knew what you should have been doing. You just didn't.",
+          ].map((text, i) => (
+            <p key={i} style={{
+              fontFamily: "var(--font-space)",
+              fontSize: "0.9rem",
+              lineHeight: 2,
+              color: "#F4EFE470",
+              margin: 0,
+            }}>{text}</p>
+          ))}
+        </div>
+
+        <p style={{
+          fontFamily: "var(--font-cormorant)",
+          fontStyle: "italic",
+          fontSize: "clamp(1.3rem, 2.8vw, 1.8rem)",
+          lineHeight: 1.6,
+          color: "#F4EFE4",
+          margin: 0,
+        }}>
+          Sit with that. The quiet guilt of it. The hollow feeling of knowing.
+        </p>
+
+        <p style={{
+          fontFamily: "var(--font-space)",
+          fontSize: "0.9rem",
+          lineHeight: 2,
+          color: "#F4EFE470",
+          margin: 0,
+        }}>
+          This isn&rsquo;t punishment. This is information.
+        </p>
+
+        <div style={{ width: "30px", height: "1px", backgroundColor: "#B91C1C" }} />
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
+          <p style={{
+            fontFamily: "var(--font-cormorant)",
+            fontStyle: "italic",
+            fontSize: "clamp(1.4rem, 3vw, 2rem)",
+            lineHeight: 1.5,
+            color: "#F4EFE4",
+            margin: 0,
+          }}>
+            Now come back. You are here. Right now.
+          </p>
+          <p style={{
+            fontFamily: "var(--font-space)",
+            fontSize: "0.9rem",
+            lineHeight: 2,
+            color: "#F4EFE470",
+            margin: 0,
+          }}>
+            The fifteen years haven&rsquo;t happened yet. Every single thing
+            you just grieved is still available to you. The choice
+            hasn&rsquo;t been made. You are still here, and you still have time.
+          </p>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
+          <p style={{
+            fontFamily: "var(--font-space)",
+            fontSize: "0.9rem",
+            lineHeight: 2,
+            color: "#F4EFE470",
+            margin: 0,
+          }}>
+            That feeling you just had? That&rsquo;s why Art is Dead exists.
+            Not to remind you of what you might lose. To remind you that you
+            still have the chance to do the thing you actually love. Not for
+            money. Not for an audience. Because it&rsquo;s yours.
+          </p>
+          <p style={{
+            fontFamily: "var(--font-cormorant)",
+            fontStyle: "italic",
+            fontSize: "clamp(1.5rem, 3vw, 2rem)",
+            lineHeight: 1.4,
+            color: "#F4EFE4",
+            margin: 0,
+          }}>
+            Go do it.
+          </p>
+        </div>
+
+        <button
+          onClick={startClose}
+          style={{
+            marginTop: "6vh",
+            background: "none",
+            border: "none",
+            fontFamily: "var(--font-space)",
+            fontSize: "0.65rem",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: "rgba(255,248,230,0.3)",
+            cursor: "pointer",
+            padding: 0,
+            textAlign: "left",
+          }}
+        >
+          ← open your eyes
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ─── page ───────────────────────────────────────────────── */
+
 export default function About() {
   const [active, setActive] = useState<TooltipKey>(null);
+  const [starOrigin, setStarOrigin] = useState<{ x: number; y: number } | null>(null);
 
   return (
     <>
       <Nav />
+
+      {starOrigin && (
+        <StarOverlay origin={starOrigin} onClose={() => setStarOrigin(null)} />
+      )}
 
       {/* Hero */}
       <section
@@ -133,13 +542,7 @@ export default function About() {
           padding: "7rem 2rem",
         }}
       >
-        <div
-          style={{
-            maxWidth: "680px",
-            margin: "0 auto",
-          }}
-        >
-          {/* Pull quote */}
+        <div style={{ maxWidth: "680px", margin: "0 auto" }}>
           <p
             style={{
               fontFamily: "var(--font-cormorant)",
@@ -193,14 +596,9 @@ export default function About() {
 
             <p style={{ margin: 0 }}>
               Art is Dead exists to remind you of that. Because if you{" "}
-              <InteractivePhrase
-                id="practice"
-                active={active}
-                onEnter={() => setActive("practice")}
-                onLeave={() => setActive(null)}
-              >
+              <CloseYourEyes onActivate={setStarOrigin}>
                 close your eyes
-              </InteractivePhrase>
+              </CloseYourEyes>
               {" "}and picture yourself 15 years from now, having walked away
               from every dream that actually mattered to you, feeling the
               regret of knowing what you should have done and not doing it,
@@ -216,114 +614,26 @@ export default function About() {
             </p>
           </div>
 
-          <div
-            style={{
-              width: "40px",
-              height: "1px",
-              backgroundColor: "#B91C1C",
-              marginTop: "4rem",
-              marginBottom: "4rem",
-            }}
-          />
-
-          <p
-            style={{
-              fontFamily: "var(--font-cormorant)",
-              fontStyle: "italic",
-              fontSize: "1.2rem",
-              color: "#1C191760",
-              marginBottom: "2rem",
-            }}
-          >
-            Still with us? Keep going.
-          </p>
-          <Link
-            href="/"
-            style={{
-              fontFamily: "var(--font-space)",
-              fontSize: "0.7rem",
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              color: "#F4EFE4",
-              textDecoration: "none",
-              backgroundColor: "#B91C1C",
-              padding: "1rem 2.5rem",
-              display: "inline-block",
-            }}
-          >
-            Talk to the brand →
-          </Link>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section
-        style={{
-          backgroundColor: "#F4EFE4",
-          padding: "7rem 2rem",
-          textAlign: "center",
-        }}
-      >
-        <p
-          style={{
-            fontFamily: "var(--font-cormorant)",
-            fontStyle: "italic",
-            fontSize: "1.2rem",
-            color: "#F4EFE460",
-            marginBottom: "1rem",
-          }}
-        >
-          Wear the work.
-        </p>
-        <Link
-          href="/collection"
-          style={{
-            fontFamily: "var(--font-space)",
-            fontSize: "0.7rem",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "#F4EFE4",
-            textDecoration: "none",
-            border: "1px solid #F4EFE440",
-            padding: "1rem 2.5rem",
-            display: "inline-block",
-          }}
-        >
-          View the collection →
-        </Link>
-      </section>
-
-      {/* Footer */}
-      <footer
-        style={{
-          backgroundColor: "#F4EFE4",
-          padding: "3rem 2rem",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "1.5rem",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ display: "flex", gap: "2rem" }}>
-          {[["Home", "/"], ["Collection", "/collection"]].map(([label, href]) => (
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "4rem" }}>
             <Link
-              key={label}
-              href={href}
+              href="/"
               style={{
                 fontFamily: "var(--font-space)",
-                fontSize: "0.65rem",
+                fontSize: "0.7rem",
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "#F4EFE450",
+                color: "#F4EFE4",
                 textDecoration: "none",
+                backgroundColor: "#B91C1C",
+                padding: "1rem 2.5rem",
+                display: "inline-block",
               }}
             >
-              {label}
+              Enter the story →
             </Link>
-          ))}
+          </div>
         </div>
-      </footer>
+      </section>
     </>
   );
 }

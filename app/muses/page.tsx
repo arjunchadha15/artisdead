@@ -1,127 +1,233 @@
-import Link from "next/link";
+"use client";
+
+import { useEffect, useRef } from "react";
 import Nav from "../components/Nav";
 
 const muses = [
-  {
-    name: "Kobe Bryant",
-    discipline: "Basketball",
-    body: [
-      "Kobe called it the Mamba Mentality. It wasn't a slogan. It was a way of existing in relation to your craft — showing up before everyone else arrived, staying after everyone left, studying the game with the obsession of someone who couldn't imagine doing anything else.",
-      "He wasn't trying to be the greatest. He was trying to understand basketball completely. The greatness was a side effect. At 3am in an empty gym, there was no crowd, no legacy, no brand — just a man and the work he loved. That's the part that matters. That's what we carry.",
-    ],
-  },
-  {
-    name: "Harriet Tubman",
-    discipline: "Abolitionist",
-    body: [
-      "She went back nineteen times. Once would have been extraordinary. Nineteen times was a philosophy. A declaration that the work is never finished, that the risk of doing it is always worth more than the safety of not.",
-      "Tubman understood something most people never do: that the process of liberation is itself liberating. Every return trip was a choice to keep going — not because it was easy or safe, but because the work demanded it. She didn't wait for conditions to be perfect. She moved.",
-    ],
-  },
-  {
-    name: "Pablo Picasso",
-    discipline: "Painting",
-    body: [
-      "Picasso made over twenty thousand works. Not because he was prolific by accident, but because he couldn't stop seeing. Every style he exhausted became a doorway into the next. He didn't protect his earlier work by staying in it — he abandoned it, again and again, in pursuit of what he hadn't yet understood.",
-      "The lesson isn't volume. It's commitment to exploration over comfort. He could have stayed in his Blue Period and been celebrated forever. He chose to keep going instead. That restlessness is the thing.",
-    ],
-  },
-  {
-    name: "Nina Simone",
-    discipline: "Music",
-    body: [
-      "Nina Simone said the artist's duty is to reflect the times. She didn't separate her music from her politics, her life from her art. Every performance was whole — technically immaculate and emotionally unguarded at once. She gave everything, every night.",
-      "She was denied entry to classical training because of who she was, and responded by building something more powerful than what they'd kept from her. She turned the wound into the work. That's not just talent. That's devotion at a level most people never find.",
-    ],
-  },
-  {
-    name: "Jean-Michel Basquiat",
-    discipline: "Art",
-    body: [
-      "Basquiat made art the way some people breathe — because stopping wasn't a real option. He painted on doors, refrigerators, found wood, walls. When he had no canvas he made one. The urgency of his output wasn't anxiety. It was the natural result of having something to say and not being willing to wait.",
-      "He brought the streets into the galleries and refused to clean them up on the way in. His work was autobiography, history, anger, and beauty at the same time. He showed that you don't have to choose between rawness and craft. The two can be the same thing.",
-    ],
-  },
-  {
-    name: "MLK",
-    discipline: "Civil Rights",
-    body: [
-      "The Letter from Birmingham Jail was written on newspaper margins and scraps of paper while Dr. King was in a cell. It became one of the most important documents in American history. The conditions were impossible. He wrote anyway.",
-      "His speeches were not improvised. They were the product of years of study — theology, philosophy, rhetoric, the Bible, Thoreau, Gandhi. The soaring language came from relentless preparation. When the moment came, he was ready because he had done the work long before anyone was watching.",
-    ],
-  },
-  {
-    name: "Frida Kahlo",
-    discipline: "Painting",
-    body: [
-      "Frida Kahlo spent extended periods of her life immobile, in a full body cast, in chronic pain. She painted anyway. She had a special easel built for her bed and a mirror mounted overhead so she could use herself as subject when she couldn't move.",
-      "She never painted dreams, she said. She painted her reality. That reality was hard and strange and alive. Her work is proof that the right response to suffering is not silence. It's making something from it — something that other people can look at and feel less alone.",
-    ],
-  },
-  {
-    name: "Bruce Lee",
-    discipline: "Martial Arts",
-    body: [
-      "Bruce Lee was a philosopher as much as a fighter. He understood that mastery isn't about learning more techniques — it's about simplifying, distilling, cutting away everything that isn't essential. He built Jeet Kune Do from scratch because existing forms weren't honest enough.",
-      "He practiced a single kick ten thousand times before he'd call it learned. Not the kick — one kick. That specificity is the whole lesson. Go deep before you go wide. The quality of your repetitions determines everything.",
-    ],
-  },
-  {
-    name: "Toni Morrison",
-    discipline: "Literature",
-    body: [
-      "Toni Morrison wrote Beloved, Song of Solomon, and Sula — among the most important novels ever written in the English language — while raising two children alone and working as an editor. She wrote early in the morning before anyone else was awake, before the day had a chance to take it from her.",
-      "She said she wrote the books she wanted to read but couldn't find. That's the whole thing. The work she gave the world came from an honest assessment of what was missing. She made what the world needed because she needed it too.",
-    ],
-  },
-  {
-    name: "Gandhi",
-    discipline: "Independence",
-    body: [
-      "Gandhi chose the spinning wheel as the symbol of Indian independence — a simple, daily, practical act of making as resistance. Not rhetoric alone. The physical practice of creating, repeated every day, as a form of declaration.",
-      "He understood that lasting change comes from the accumulation of daily choices, not single heroic moments. The spinning wheel wasn't metaphor. It was instruction: show up, do the work, make the thing with your hands, keep going.",
-    ],
-  },
-  {
-    name: "Miles Davis",
-    discipline: "Music",
-    body: [
-      "Miles Davis reinvented jazz multiple times over the course of one career. Every time he had mastered something, he moved. Cool jazz, modal jazz, fusion — each transition confused and alienated audiences who had just learned to love the previous version of him. He didn't care.",
-      "He said don't play what's there — play what's not there. That's an instruction for living, not just for music. The most interesting thing is always the space you haven't explored yet. Miles kept moving into it until the end.",
-    ],
-  },
-  {
-    name: "Serena Williams",
-    discipline: "Tennis",
-    body: [
-      "Serena Williams won 23 Grand Slams across three decades, came back from life-threatening illness, from childbirth complications, from every kind of setback that would have ended careers. She defined herself not by what she won but by what she survived and returned from.",
-      "She said a champion is defined not by their wins but by how they recover when they fall. That's not a consolation — it's a blueprint. The capacity to rebuild yourself, to relearn, to start again with everything on the line, is the thing that actually lasts.",
-    ],
-  },
-  {
-    name: "Stanley Kubrick",
-    discipline: "Film",
-    body: [
-      "Kubrick spent more time preparing for a film than most directors spend making one. He read everything about the subject, photographed locations himself, interviewed experts obsessively, and didn't shoot until he understood every detail. He made thirteen films in fifty years and every one of them is alive.",
-      "He said however vast the darkness, we must supply our own light. That wasn't poetry for its own sake. It was a working principle. The darkness of not-knowing, of starting from nothing, of trying to make something true — you bring the light yourself. You don't wait for it.",
-    ],
-  },
+  { name: "Kobe Bryant", discipline: "Basketball", quote: "Rest at the end, not in the middle." },
+  { name: "Harriet Tubman", discipline: "Abolitionist", quote: "I never ran my train off the track and I never lost a passenger." },
+  { name: "Pablo Picasso", discipline: "Painting", quote: "The meaning of life is to find your gift. The purpose of life is to give it away." },
+  { name: "Nina Simone", discipline: "Music", quote: "I never had nothin' and I never will. But I have always had my music." },
+  { name: "Jean-Michel Basquiat", discipline: "Art", quote: "I don't think about art when I'm working. I think about life." },
+  { name: "MLK", discipline: "Civil Rights", quote: "If you can't fly then run. If you can't run then walk. If you can't walk then crawl." },
+  { name: "Frida Kahlo", discipline: "Painting", quote: "I never painted dreams. I painted my own reality." },
+  { name: "Bruce Lee", discipline: "Martial Arts", quote: "I fear not the man who practiced 10,000 kicks once, but the man who practiced one kick 10,000 times." },
+  { name: "Toni Morrison", discipline: "Literature", quote: "If you have some power, then your job is to empower somebody else." },
+  { name: "Gandhi", discipline: "Independence", quote: "The spinning wheel is not just for spinning thread. It is the symbol of nonviolent resistance." },
+  { name: "Miles Davis", discipline: "Music", quote: "Don't play what's there. Play what's not there." },
+  { name: "Serena Williams", discipline: "Tennis", quote: "A champion is defined not by their wins but by how they recover when they fall." },
+  { name: "Stanley Kubrick", discipline: "Film", quote: "However vast the darkness, we must supply our own light." },
+  { name: "David Bowie", discipline: "Music", quote: "I don't know where I'm going from here, but I promise it won't be boring." },
+  { name: "Beyoncé", discipline: "Music", quote: "Power is not given to you. You have to take it." },
+  { name: "Muhammad Ali", discipline: "Boxing", quote: "Don't count the days. Make the days count." },
+  { name: "Leonardo da Vinci", discipline: "Art & Science", quote: "Knowing is not enough. We must apply. Being willing is not enough. We must do." },
+  { name: "Jimi Hendrix", discipline: "Music", quote: "Knowledge speaks, but wisdom listens." },
+  { name: "Pharrell Williams", discipline: "Music", quote: "The thing I'm most proud of is my curiosity." },
+  { name: "Kanye West", discipline: "Music", quote: "My greatest pain in life is that I will never be able to see myself perform live." },
+  { name: "Michael Jackson", discipline: "Music", quote: "In a world filled with hate, we must still dare to hope." },
+  { name: "Kyrie Irving", discipline: "Basketball", quote: "I'm just trying to be the best version of myself every single day." },
+  { name: "Coco Chanel", discipline: "Fashion", quote: "In order to be irreplaceable, one must always be different." },
+  { name: "Donald Glover", discipline: "Art", quote: "Everything I do, I want it to feel necessary." },
+  { name: "Steve Jobs", discipline: "Technology", quote: "The people crazy enough to think they can change the world are the ones who do." },
+  { name: "Kendrick Lamar", discipline: "Music", quote: "I got so much to say, I talk to myself while I'm listening." },
+  { name: "Maya Angelou", discipline: "Literature", quote: "You can't use up creativity. The more you use, the more you have." },
+  { name: "Prince", discipline: "Music", quote: "A strong spirit transcends rules." },
+  { name: "Nikola Tesla", discipline: "Science", quote: "The present is theirs. The future, for which I really worked, is mine." },
+  { name: "Wes Anderson", discipline: "Film", quote: "I have a way of filming things and staging them and designing sets. There's something called the Wes Anderson style." },
 ];
+
+function sr(seed: number) {
+  const x = Math.sin(seed * 9301 + 49297) * 233280;
+  return x - Math.floor(x);
+}
+
+function tornClipPath(seed: number): string {
+  const pts: string[] = [];
+  // top edge
+  pts.push(`${sr(seed) * 1.5}% ${sr(seed + 1) * 2}%`);
+  for (let i = 1; i <= 6; i++) {
+    const x = (i / 7) * 100 + (sr(seed + i * 10) * 3 - 1.5);
+    const y = sr(seed + i * 11) * 4 - 1;
+    pts.push(`${Math.min(99, Math.max(1, x))}% ${Math.max(0, y)}%`);
+  }
+  pts.push(`${98 + sr(seed + 5) * 2}% ${sr(seed + 6) * 2}%`);
+  // right edge
+  for (let i = 1; i <= 7; i++) {
+    const y = (i / 8) * 100 + (sr(seed + i * 20) * 3 - 1.5);
+    const x = 100 - sr(seed + i * 21) * 5;
+    pts.push(`${x}% ${Math.min(99, Math.max(1, y))}%`);
+  }
+  pts.push(`${97 + sr(seed + 7) * 3}% ${98 + sr(seed + 8) * 2}%`);
+  // bottom edge - more torn
+  for (let i = 6; i >= 1; i--) {
+    const x = (i / 7) * 100 + (sr(seed + i * 30) * 4 - 2);
+    const y = 100 - sr(seed + i * 31) * 7;
+    pts.push(`${Math.min(99, Math.max(1, x))}% ${y}%`);
+  }
+  pts.push(`${sr(seed + 9) * 2}% ${97 + sr(seed + 10) * 3}%`);
+  // left edge
+  for (let i = 7; i >= 1; i--) {
+    const y = (i / 8) * 100 + (sr(seed + i * 40) * 3 - 1.5);
+    const x = sr(seed + i * 41) * 5;
+    pts.push(`${x}% ${Math.min(99, Math.max(1, y))}%`);
+  }
+  return `polygon(${pts.join(", ")})`;
+}
+
+function MuseCard({ muse, index }: { muse: typeof muses[0]; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const baseRot = (sr(index * 3 + 1) * 28) - 14;
+  const baseX   = (sr(index * 7 + 2) * 36) - 18;
+  const baseY   = (sr(index * 5 + 3) * 24) - 12;
+  const clip    = tornClipPath(index * 17 + 3);
+
+  // Paper tones — cycle through a few warm hues
+  const papers = ["#FFF8EE", "#FEFBF3", "#FFF5E6", "#FFFBF0", "#FFF2E5"];
+  const paper  = papers[index % papers.length];
+
+  // Lined paper stripe
+  const lineColor = "rgba(28,25,23,0.055)";
+  const linesBg   = `repeating-linear-gradient(transparent, transparent 23px, ${lineColor} 23px, ${lineColor} 24px)`;
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let rafId = 0;
+
+    const update = () => {
+      const rect = el.getBoundingClientRect();
+      const cardCenter = rect.top + rect.height / 2;
+      const vcenter = window.innerHeight * 0.48;
+      const dist = Math.abs(cardCenter - vcenter);
+      const maxDist = window.innerHeight * 0.62;
+      const raw = Math.max(0, 1 - dist / maxDist);
+      // smoothstep
+      const t = raw * raw * (3 - 2 * raw);
+
+      const rot   = baseRot   * (1 - t * 0.88);
+      const tx    = baseX     * (1 - t);
+      const ty    = baseY     * (1 - t) - t * 10;
+      const scale = 1 + t * 0.04;
+      const shadowY   = 3  + t * 16;
+      const shadowB   = 8  + t * 24;
+      const shadowAlp = 0.07 + t * 0.18;
+
+      el.style.transform = `rotate(${rot}deg) translate(${tx}px, ${ty}px) scale(${scale})`;
+      el.style.filter    = `drop-shadow(0 ${shadowY}px ${shadowB}px rgba(28,25,23,${shadowAlp}))`;
+      el.style.zIndex    = String(Math.round(t * 30 + 1));
+      el.style.opacity   = String(0.65 + t * 0.35);
+    };
+
+    const onScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(update);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // small delay so initial scroll position is read after layout
+    setTimeout(update, 60);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, [baseRot, baseX, baseY]);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        position: "relative",
+        backgroundColor: paper,
+        clipPath: clip,
+        padding: "2rem 2rem 2.5rem",
+        willChange: "transform, filter, opacity",
+        transition: "none",
+        cursor: "default",
+      }}
+    >
+      {/* lined paper overlay */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: linesBg,
+          backgroundSize: "100% 24px",
+          backgroundPositionY: "2.5rem",
+          pointerEvents: "none",
+          opacity: 0.9,
+        }}
+      />
+      {/* slight aging gradient */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(ellipse at 80% 90%, rgba(180,130,60,0.06) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <span
+        style={{
+          position: "relative",
+          fontFamily: "var(--font-space)",
+          fontSize: "0.55rem",
+          letterSpacing: "0.28em",
+          textTransform: "uppercase",
+          color: "#B91C1C",
+          display: "block",
+          marginBottom: "0.55rem",
+        }}
+      >
+        {muse.discipline}
+      </span>
+
+      <h2
+        style={{
+          position: "relative",
+          fontFamily: "var(--font-cormorant)",
+          fontSize: "clamp(1.5rem, 3.5vw, 2.2rem)",
+          fontWeight: 700,
+          color: "#1C1917",
+          margin: "0 0 1rem",
+          lineHeight: 1,
+          letterSpacing: "-0.01em",
+        }}
+      >
+        {muse.name}
+      </h2>
+
+      <p
+        style={{
+          position: "relative",
+          fontFamily: "var(--font-caveat)",
+          fontSize: "clamp(1rem, 2vw, 1.2rem)",
+          color: "#3a3028cc",
+          margin: 0,
+          lineHeight: 1.6,
+        }}
+      >
+        &ldquo;{muse.quote}&rdquo;
+      </p>
+    </div>
+  );
+}
 
 export default function Muses() {
   return (
     <>
       <Nav />
 
-      {/* Hero */}
       <section
         style={{
           backgroundColor: "#F4EFE4",
-          minHeight: "45vh",
-          display: "flex",
-          alignItems: "flex-end",
-          paddingTop: "120px",
-          paddingBottom: "5rem",
+          paddingTop: "140px",
+          paddingBottom: "3rem",
           paddingLeft: "2rem",
           paddingRight: "2rem",
         }}
@@ -144,7 +250,7 @@ export default function Muses() {
               fontFamily: "var(--font-cormorant)",
               fontSize: "clamp(3rem, 8vw, 7rem)",
               fontWeight: 700,
-              color: "#F4EFE4",
+              color: "#1C1917",
               margin: 0,
               lineHeight: 0.9,
               letterSpacing: "-0.02em",
@@ -157,123 +263,51 @@ export default function Muses() {
               fontFamily: "var(--font-cormorant)",
               fontStyle: "italic",
               fontSize: "clamp(1rem, 2vw, 1.3rem)",
-              color: "#F4EFE460",
+              color: "#1C191760",
               marginTop: "2rem",
               marginBottom: 0,
               maxWidth: "560px",
               lineHeight: 1.6,
             }}
           >
-            Thirteen people who gave themselves fully to their work. Not for
-            fame. Not for the outcome. Because the process demanded everything,
-            and they gave it.
+            People who gave everything to what they loved. Not for fame. Not for
+            the outcome. Because the work demanded it.
           </p>
         </div>
       </section>
 
-      {/* Muses list */}
       <section
         style={{
           backgroundColor: "#F4EFE4",
-          padding: "7rem 2rem",
+          padding: "2rem 3rem 6rem",
+          overflow: "visible",
         }}
       >
-        <div style={{ maxWidth: "780px", margin: "0 auto" }}>
+        <div
+          style={{
+            maxWidth: "1100px",
+            margin: "0 auto",
+            columns: "2 300px",
+            columnGap: "2rem",
+            overflow: "visible",
+          }}
+        >
           {muses.map((muse, i) => (
             <div
               key={muse.name}
               style={{
-                paddingBottom: "6rem",
-                marginBottom: "6rem",
-                borderBottom: i < muses.length - 1 ? "1px solid #1C191715" : "none",
+                breakInside: "avoid",
+                marginBottom: `${1.2 + sr(i * 13) * 1.8}rem`,
+                display: "inline-block",
+                width: "100%",
+                overflow: "visible",
               }}
             >
-              <span
-                style={{
-                  fontFamily: "var(--font-space)",
-                  fontSize: "0.62rem",
-                  letterSpacing: "0.25em",
-                  textTransform: "uppercase",
-                  color: "#B91C1C",
-                  display: "block",
-                  marginBottom: "0.75rem",
-                }}
-              >
-                {muse.discipline}
-              </span>
-
-              <h2
-                style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
-                  fontWeight: 700,
-                  color: "#1C1917",
-                  margin: "0 0 2.5rem",
-                  lineHeight: 0.95,
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                {muse.name}
-              </h2>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1.5rem",
-                }}
-              >
-                {muse.body.map((para, j) => (
-                  <p
-                    key={j}
-                    style={{
-                      fontFamily: "var(--font-space)",
-                      fontSize: "0.9rem",
-                      lineHeight: 2,
-                      color: "#1C191780",
-                      margin: 0,
-                    }}
-                  >
-                    {para}
-                  </p>
-                ))}
-              </div>
+              <MuseCard muse={muse} index={i} />
             </div>
           ))}
         </div>
       </section>
-
-      {/* Footer */}
-      <footer
-        style={{
-          backgroundColor: "#F4EFE4",
-          padding: "4rem 2rem",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "2rem",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ display: "flex", gap: "2rem" }}>
-          {[["Home", "/"], ["Collection", "/collection"], ["About", "/about"]].map(([label, href]) => (
-            <Link
-              key={label}
-              href={href}
-              style={{
-                fontFamily: "var(--font-space)",
-                fontSize: "0.65rem",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "#F4EFE450",
-                textDecoration: "none",
-              }}
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
-      </footer>
     </>
   );
 }

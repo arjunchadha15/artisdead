@@ -4,7 +4,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-const navLinks = [
+const leftLinks = [
+  ["Collection", "/collection"],
+  ["About", "/about"],
+];
+
+const rightLinks = [
   ["Muses", "/muses"],
 ];
 
@@ -59,7 +64,7 @@ export default function Nav() {
       {/* Left */}
       <div style={{ display: "flex", gap: "2.5rem", alignItems: "center" }}>
         {showLogo ? (
-          navLinks.slice(0, 1).map(([label, href]) => (
+          leftLinks.map(([label, href]) => (
             <Link key={label} href={href} style={linkStyle}>{label}</Link>
           ))
         ) : null}
@@ -86,11 +91,11 @@ export default function Nav() {
       {/* Right */}
       <div style={{ display: "flex", gap: "2.5rem", alignItems: "center", justifyContent: "flex-end" }}>
         {showLogo ? (
-          navLinks.slice(1).map(([label, href]) => (
+          rightLinks.map(([label, href]) => (
             <Link key={label} href={href} style={linkStyle}>{label}</Link>
           ))
         ) : (
-          navLinks.map(([label, href]) => (
+          [...leftLinks, ...rightLinks].map(([label, href]) => (
             <Link key={label} href={href} style={linkStyle}>{label}</Link>
           ))
         )}
