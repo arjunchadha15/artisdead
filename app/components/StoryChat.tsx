@@ -7,7 +7,7 @@ interface Message {
   content: string;
 }
 
-const MAX_USER_TURNS = 15;
+const MAX_USER_TURNS = 10;
 const MAX_INPUT_CHARS = 400;
 
 export default function StoryChat() {

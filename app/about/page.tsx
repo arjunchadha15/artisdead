@@ -354,7 +354,7 @@ function StarOverlay({
 
         <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
           {[
-            "You are fifteen years from now. You are older. The world kept moving and you moved with it. But somewhere along the way, you stopped. The thing you wanted to do — the thing you kept thinking about late at night, the thing that felt too risky, too unrealistic, too inconvenient — you let it go.",
+            "You are fifteen years from now. You are older. The world kept moving and you moved with it. But somewhere along the way, you stopped. The thing you wanted to do, the thing you kept thinking about late at night, the thing that felt too risky, too unrealistic, too inconvenient, you let it go.",
             "Not in one moment. Slowly. The way you let most things go.",
           ].map((text, i) => (
             <p key={i} style={{
@@ -556,9 +556,8 @@ export default function About() {
               paddingLeft: "2rem",
             }}
           >
-            The art of things is slowly dying. Not because people have stopped
-            making, but because we&rsquo;ve stopped believing the making is
-            the point.
+            Somewhere along the way, the things we chase stopped being things
+            we chose.
           </p>
 
           <div
@@ -573,44 +572,60 @@ export default function About() {
             }}
           >
             <p style={{ margin: 0 }}>
-              We live in a world that is really good at making you feel like
-              your dreams aren&rsquo;t realistic. Algorithms decide what you
-              see. Fear gets clicks. And slowly, without realizing it, people
-              stop chasing the things they actually care about.
+              We live in a world that has gotten very good at making decisions
+              for you. Not by force. By design. What you see, what you want,
+              what success looks like, what a good life means. These ideas
+              arrive already formed. Algorithms shape them. Money reinforces
+              them. And the longer you move inside that system without
+              questioning it, the more those ideas start to feel like your own.
             </p>
 
             <p style={{ margin: 0 }}>
-              Art is Dead came from a simple belief: that life is yours to
-              direct, and{" "}
+              The cost is subtle. You don&rsquo;t feel it in one moment. You
+              feel it in the slow accumulation of choices made from fear instead
+              of love. The career that made sense on paper. The things you keep
+              buying that never quite fill the feeling. The thing you used to do
+              when you were younger, before you started worrying about what it
+              looked like to other people, that you haven&rsquo;t touched in
+              years.
+            </p>
+
+            <p style={{ margin: 0 }}>
+              {" "}
               <InteractivePhrase
                 id="muses"
                 active={active}
                 onEnter={() => setActive("muses")}
                 onLeave={() => setActive(null)}
               >
-                the people who have changed the world
+                The people who have moved the world
               </InteractivePhrase>
-              {" "}were not special. They just decided to show up for what they
-              loved and believed their actions could mean something. That&rsquo;s it.
+              {" "}were not operating from fear of what they might lose. They
+              were operating from gratitude for what they already had and love
+              for what they were building. That is a different way of moving
+              through life. Most people never try it.
             </p>
 
             <p style={{ margin: 0 }}>
-              Art is Dead exists to remind you of that. Because if you{" "}
+              Art is Dead exists to invite people back to that. To choose what
+              you actually love, not what you were sold. To make things from
+              your own deep, original perspective, for people you love, or
+              because you believe the world needs to see it. To{" "}
               <CloseYourEyes onActivate={setStarOrigin}>
                 close your eyes
               </CloseYourEyes>
-              {" "}and picture yourself 15 years from now, having walked away
-              from every dream that actually mattered to you, feeling the
-              regret of knowing what you should have done and not doing it,
-              and then you come back to right now, something shifts.
+              {" "}and get honest about the version of your life you are
+              actually living versus the one you would choose if you were
+              starting from a place of abundance instead of fear.
             </p>
 
             <p style={{ margin: 0 }}>
-              You still have time. You still have the choice. Everyone has
-              something they love doing. Not for money, not for an audience,
-              just because it feels right. A kid who wants to play basketball
-              isn&rsquo;t thinking about a contract. They just love playing.
-              Art is Dead is here to remind you of yours. Go do it.
+              That is what it means to live like an artist. Not to be a painter.
+              Not to have a following. To move through the world as someone who
+              chooses what they consume, creates what only they could make, and
+              does it from a place of genuine love rather than performance.
+              That life is available to anyone. It just requires deciding to
+              live it.
             </p>
           </div>
 
