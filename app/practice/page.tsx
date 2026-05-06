@@ -20,7 +20,7 @@ export default function Practice() {
             fontSize: "0.65rem",
             letterSpacing: "0.2em",
             textTransform: "uppercase",
-            color: "#F4EFE430",
+            color: "#FFFFFF30",
             textDecoration: "none",
           }}
         >
@@ -48,7 +48,7 @@ export default function Practice() {
               fontSize: "0.65rem",
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "#F4EFE430",
+              color: "#FFFFFF30",
               margin: "0 0 2rem",
             }}
           >
@@ -59,7 +59,7 @@ export default function Practice() {
               fontFamily: "var(--font-cormorant)",
               fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
               fontWeight: 700,
-              color: "#F4EFE4",
+              color: "#FFFFFF",
               lineHeight: 1,
               letterSpacing: "-0.02em",
               margin: 0,
@@ -76,7 +76,7 @@ export default function Practice() {
             fontStyle: "italic",
             fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
             lineHeight: 1.7,
-            color: "#F4EFE460",
+            color: "#FFFFFF60",
             margin: 0,
           }}
         >
@@ -91,7 +91,7 @@ export default function Practice() {
               fontFamily: "var(--font-space)",
               fontSize: "0.9rem",
               lineHeight: 2,
-              color: "#F4EFE470",
+              color: "#FFFFFF70",
               margin: 0,
             }}
           >
@@ -106,7 +106,7 @@ export default function Practice() {
               fontFamily: "var(--font-space)",
               fontSize: "0.9rem",
               lineHeight: 2,
-              color: "#F4EFE470",
+              color: "#FFFFFF70",
               margin: 0,
             }}
           >
@@ -124,7 +124,7 @@ export default function Practice() {
               fontFamily: "var(--font-space)",
               fontSize: "0.9rem",
               lineHeight: 2,
-              color: "#F4EFE470",
+              color: "#FFFFFF70",
               margin: 0,
             }}
           >
@@ -137,7 +137,7 @@ export default function Practice() {
               fontFamily: "var(--font-space)",
               fontSize: "0.9rem",
               lineHeight: 2,
-              color: "#F4EFE470",
+              color: "#FFFFFF70",
               margin: 0,
             }}
           >
@@ -152,7 +152,7 @@ export default function Practice() {
             fontStyle: "italic",
             fontSize: "clamp(1.3rem, 2.8vw, 1.8rem)",
             lineHeight: 1.6,
-            color: "#F4EFE4",
+            color: "#FFFFFF",
             margin: 0,
           }}
         >
@@ -164,7 +164,7 @@ export default function Practice() {
             fontFamily: "var(--font-space)",
             fontSize: "0.9rem",
             lineHeight: 2,
-            color: "#F4EFE470",
+            color: "#FFFFFF70",
             margin: 0,
           }}
         >
@@ -182,7 +182,7 @@ export default function Practice() {
               fontStyle: "italic",
               fontSize: "clamp(1.4rem, 3vw, 2rem)",
               lineHeight: 1.5,
-              color: "#F4EFE4",
+              color: "#FFFFFF",
               margin: 0,
             }}
           >
@@ -193,7 +193,7 @@ export default function Practice() {
               fontFamily: "var(--font-space)",
               fontSize: "0.9rem",
               lineHeight: 2,
-              color: "#F4EFE470",
+              color: "#FFFFFF70",
               margin: 0,
             }}
           >
@@ -211,7 +211,7 @@ export default function Practice() {
               fontFamily: "var(--font-space)",
               fontSize: "0.9rem",
               lineHeight: 2,
-              color: "#F4EFE470",
+              color: "#FFFFFF70",
               margin: 0,
             }}
           >
@@ -226,7 +226,7 @@ export default function Practice() {
               fontStyle: "italic",
               fontSize: "clamp(1.5rem, 3vw, 2rem)",
               lineHeight: 1.4,
-              color: "#F4EFE4",
+              color: "#FFFFFF",
               margin: 0,
             }}
           >
@@ -243,7 +243,7 @@ export default function Practice() {
               fontSize: "0.65rem",
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "#F4EFE430",
+              color: "#FFFFFF30",
               textDecoration: "none",
             }}
           >

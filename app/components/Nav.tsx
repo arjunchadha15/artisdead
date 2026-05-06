@@ -51,7 +51,7 @@ export default function Nav() {
         left: 0,
         right: 0,
         zIndex: 100,
-        backgroundColor: "#F4EFE4",
+        backgroundColor: "#FFFFFF",
         borderBottom: "1px solid transparent",
         transition: "border-color 0.3s ease",
         padding: "0 2rem",

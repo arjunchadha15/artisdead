@@ -162,7 +162,7 @@ export default function FiguresOrbit({ expanded = false, onEnter }: FiguresOrbit
       ref={sectionRef}
       style={{
         height: expanded ? "100vh" : "100vh",
-        backgroundColor: "#F4EFE4",
+        backgroundColor: "#FFFFFF",
         position: expanded ? "fixed" : "relative",
         inset: expanded ? 0 : undefined,
         zIndex: expanded ? 20 : undefined,
@@ -263,12 +263,12 @@ export default function FiguresOrbit({ expanded = false, onEnter }: FiguresOrbit
       {/* Top + bottom vignette */}
       <div style={{
         position: "absolute", top: 0, left: 0, right: 0, height: "140px",
-        background: "linear-gradient(to bottom, #F4EFE4 0%, transparent 100%)",
+        background: "linear-gradient(to bottom, #FFFFFF 0%, transparent 100%)",
         pointerEvents: "none", zIndex: 5,
       }} />
       <div style={{
         position: "absolute", bottom: 0, left: 0, right: 0, height: "200px",
-        background: "linear-gradient(to top, #F4EFE4 0%, transparent 100%)",
+        background: "linear-gradient(to top, #FFFFFF 0%, transparent 100%)",
         pointerEvents: "none", zIndex: 5,
         opacity: expanded ? 0 : 1,
         transition: "opacity 0.4s ease",

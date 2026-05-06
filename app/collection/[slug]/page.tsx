@@ -22,7 +22,7 @@ export default async function ProductPage({
 
       <main
         style={{
-          backgroundColor: "#F4EFE4",
+          backgroundColor: "#FFFFFF",
           minHeight: "100vh",
           paddingTop: "100px",
         }}
@@ -68,7 +68,7 @@ export default async function ProductPage({
               position: "sticky",
               top: "120px",
               aspectRatio: "1/1",
-              backgroundColor: "#E8E0CE",
+              backgroundColor: "#FFFFFF",
               overflow: "hidden",
               display: "flex",
               alignItems: "center",
@@ -200,7 +200,7 @@ export default async function ProductPage({
                   fontSize: "0.65rem",
                   letterSpacing: "0.2em",
                   textTransform: "uppercase",
-                  color: "#F4EFE4",
+                  color: "#FFFFFF",
                   backgroundColor: "#1C1917",
                   border: "none",
                   padding: "1rem 2.5rem",
@@ -255,7 +255,7 @@ export default async function ProductPage({
             fontFamily: "var(--font-cormorant)",
             fontStyle: "italic",
             fontSize: "1rem",
-            color: "#F4EFE460",
+            color: "#FFFFFF60",
             margin: 0,
           }}
         >
@@ -271,7 +271,7 @@ export default async function ProductPage({
                 fontSize: "0.65rem",
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "#F4EFE450",
+                color: "#FFFFFF50",
                 textDecoration: "none",
               }}
             >

@@ -39,7 +39,7 @@ export default function FAQ() {
 
       <section
         style={{
-          backgroundColor: "#F4EFE4",
+          backgroundColor: "#FFFFFF",
           minHeight: "40vh",
           display: "flex",
           alignItems: "flex-end",
@@ -80,7 +80,7 @@ export default function FAQ() {
 
       <section
         style={{
-          backgroundColor: "#F4EFE4",
+          backgroundColor: "#FFFFFF",
           padding: "5rem 2rem 8rem",
         }}
       >
@@ -141,7 +141,7 @@ export default function FAQ() {
                 fontSize: "0.7rem",
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "#F4EFE4",
+                color: "#FFFFFF",
                 textDecoration: "none",
                 backgroundColor: "#B91C1C",
                 padding: "1rem 2.5rem",

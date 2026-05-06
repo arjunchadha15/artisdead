@@ -56,7 +56,7 @@ function InteractivePhrase({
             left: "50%",
             transform: "translateX(-50%)",
             backgroundColor: "#1C1917",
-            color: "#F4EFE4",
+            color: "#FFFFFF",
             padding: "0.85rem 1.1rem",
             width: "210px",
             fontFamily: "var(--font-cormorant)",
@@ -322,7 +322,7 @@ function StarOverlay({
             fontSize: "0.65rem",
             letterSpacing: "0.2em",
             textTransform: "uppercase",
-            color: "#F4EFE430",
+            color: "#FFFFFF30",
             margin: "0 0 2rem",
           }}>
             A practice
@@ -331,7 +331,7 @@ function StarOverlay({
             fontFamily: "var(--font-cormorant)",
             fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
             fontWeight: 700,
-            color: "#F4EFE4",
+            color: "#FFFFFF",
             lineHeight: 1,
             letterSpacing: "-0.02em",
             margin: 0,
@@ -345,7 +345,7 @@ function StarOverlay({
           fontStyle: "italic",
           fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
           lineHeight: 1.7,
-          color: "#F4EFE460",
+          color: "#FFFFFF60",
           margin: 0,
         }}>
           Find somewhere quiet. Give yourself two minutes. This only works if
@@ -361,7 +361,7 @@ function StarOverlay({
               fontFamily: "var(--font-space)",
               fontSize: "0.9rem",
               lineHeight: 2,
-              color: "#F4EFE470",
+              color: "#FFFFFF70",
               margin: 0,
             }}>{text}</p>
           ))}
@@ -378,7 +378,7 @@ function StarOverlay({
               fontFamily: "var(--font-space)",
               fontSize: "0.9rem",
               lineHeight: 2,
-              color: "#F4EFE470",
+              color: "#FFFFFF70",
               margin: 0,
             }}>{text}</p>
           ))}
@@ -389,7 +389,7 @@ function StarOverlay({
           fontStyle: "italic",
           fontSize: "clamp(1.3rem, 2.8vw, 1.8rem)",
           lineHeight: 1.6,
-          color: "#F4EFE4",
+          color: "#FFFFFF",
           margin: 0,
         }}>
           Sit with that. The quiet guilt of it. The hollow feeling of knowing.
@@ -399,7 +399,7 @@ function StarOverlay({
           fontFamily: "var(--font-space)",
           fontSize: "0.9rem",
           lineHeight: 2,
-          color: "#F4EFE470",
+          color: "#FFFFFF70",
           margin: 0,
         }}>
           This isn&rsquo;t punishment. This is information.
@@ -413,7 +413,7 @@ function StarOverlay({
             fontStyle: "italic",
             fontSize: "clamp(1.4rem, 3vw, 2rem)",
             lineHeight: 1.5,
-            color: "#F4EFE4",
+            color: "#FFFFFF",
             margin: 0,
           }}>
             Now come back. You are here. Right now.
@@ -422,7 +422,7 @@ function StarOverlay({
             fontFamily: "var(--font-space)",
             fontSize: "0.9rem",
             lineHeight: 2,
-            color: "#F4EFE470",
+            color: "#FFFFFF70",
             margin: 0,
           }}>
             The fifteen years haven&rsquo;t happened yet. Every single thing
@@ -436,7 +436,7 @@ function StarOverlay({
             fontFamily: "var(--font-space)",
             fontSize: "0.9rem",
             lineHeight: 2,
-            color: "#F4EFE470",
+            color: "#FFFFFF70",
             margin: 0,
           }}>
             That feeling you just had? That&rsquo;s why Art is Dead exists.
@@ -449,7 +449,7 @@ function StarOverlay({
             fontStyle: "italic",
             fontSize: "clamp(1.5rem, 3vw, 2rem)",
             lineHeight: 1.4,
-            color: "#F4EFE4",
+            color: "#FFFFFF",
             margin: 0,
           }}>
             Go do it.
@@ -496,7 +496,7 @@ export default function About() {
       {/* Hero */}
       <section
         style={{
-          backgroundColor: "#F4EFE4",
+          backgroundColor: "#FFFFFF",
           minHeight: "55vh",
           display: "flex",
           alignItems: "flex-end",
@@ -538,7 +538,7 @@ export default function About() {
       {/* Manifesto */}
       <section
         style={{
-          backgroundColor: "#F4EFE4",
+          backgroundColor: "#FFFFFF",
           padding: "7rem 2rem",
         }}
       >
@@ -637,7 +637,7 @@ export default function About() {
                 fontSize: "0.7rem",
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "#F4EFE4",
+                color: "#FFFFFF",
                 textDecoration: "none",
                 backgroundColor: "#B91C1C",
                 padding: "1rem 2.5rem",

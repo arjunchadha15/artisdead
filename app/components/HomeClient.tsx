@@ -47,7 +47,7 @@ export default function HomeClient() {
       {/* COLLECTION PREVIEW */}
       <section
         style={{
-          backgroundColor: "#F4EFE4",
+          backgroundColor: "#FFFFFF",
           padding: "7rem 2rem",
         }}
       >
@@ -103,7 +103,7 @@ export default function HomeClient() {
                   <div
                     style={{
                       aspectRatio: "1/1",
-                      backgroundColor: "#E8E0CE",
+                      backgroundColor: "transparent",
                       marginBottom: "1.25rem",
                       position: "relative",
                       overflow: "hidden",

@@ -10,7 +10,7 @@ export default function Collection() {
       {/* Header */}
       <section
         style={{
-          backgroundColor: "#F4EFE4",
+          backgroundColor: "#FFFFFF",
           paddingTop: "140px",
           paddingBottom: "4rem",
           paddingLeft: "2rem",
@@ -56,7 +56,7 @@ export default function Collection() {
       {/* Products */}
       <section
         style={{
-          backgroundColor: "#F4EFE4",
+          backgroundColor: "#FFFFFF",
           padding: "0 2rem 7rem",
         }}
       >
@@ -79,7 +79,7 @@ export default function Collection() {
                 <div
                   style={{
                     aspectRatio: "1/1",
-                    backgroundColor: "#E8E0CE",
+                    backgroundColor: "transparent",
                     marginBottom: "1.5rem",
                     position: "relative",
                     overflow: "hidden",
@@ -193,7 +193,7 @@ export default function Collection() {
                       fontSize: "0.65rem",
                       letterSpacing: "0.18em",
                       textTransform: "uppercase",
-                      color: "#F4EFE4",
+                      color: "#FFFFFF",
                       backgroundColor: "#1C1917",
                       border: "none",
                       padding: "0.75rem 1.5rem",
@@ -213,7 +213,7 @@ export default function Collection() {
       {/* Footer */}
       <footer
         style={{
-          backgroundColor: "#F4EFE4",
+          backgroundColor: "#FFFFFF",
           padding: "3rem 2rem",
           display: "flex",
           flexDirection: "column",
@@ -227,7 +227,7 @@ export default function Collection() {
             fontFamily: "var(--font-cormorant)",
             fontStyle: "italic",
             fontSize: "1rem",
-            color: "#F4EFE460",
+            color: "#FFFFFF60",
             margin: 0,
           }}
         >
@@ -243,7 +243,7 @@ export default function Collection() {
                 fontSize: "0.65rem",
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "#F4EFE450",
+                color: "#FFFFFF50",
                 textDecoration: "none",
               }}
             >

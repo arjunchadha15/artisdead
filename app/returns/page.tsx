@@ -7,7 +7,7 @@ export default function Returns() {
 
       <section
         style={{
-          backgroundColor: "#F4EFE4",
+          backgroundColor: "#FFFFFF",
           minHeight: "40vh",
           display: "flex",
           alignItems: "flex-end",
@@ -48,7 +48,7 @@ export default function Returns() {
 
       <section
         style={{
-          backgroundColor: "#F4EFE4",
+          backgroundColor: "#FFFFFF",
           padding: "5rem 2rem 8rem",
         }}
       >

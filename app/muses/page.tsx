@@ -225,7 +225,7 @@ export default function Muses() {
 
       <section
         style={{
-          backgroundColor: "#F4EFE4",
+          backgroundColor: "#FFFFFF",
           paddingTop: "140px",
           paddingBottom: "3rem",
           paddingLeft: "2rem",
@@ -278,7 +278,7 @@ export default function Muses() {
 
       <section
         style={{
-          backgroundColor: "#F4EFE4",
+          backgroundColor: "#FFFFFF",
           padding: "2rem 3rem 6rem",
           overflow: "visible",
         }}

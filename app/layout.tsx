@@ -37,7 +37,7 @@ export default function RootLayout({
       <body className={`${cormorant.variable} ${spaceGrotesk.variable} ${caveat.variable}`}>
         {children}
         <footer style={{
-          backgroundColor: "#F4EFE4",
+          backgroundColor: "#FFFFFF",
           padding: "3rem 2rem",
           display: "flex",
           flexDirection: "column",

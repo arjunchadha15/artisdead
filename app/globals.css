@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream: #F4EFE4;
-  --color-cream-dark: #E8E0CE;
+  --color-cream: #FFFFFF;
+  --color-cream-dark: #FFFFFF;
   --color-red-brand: #B91C1C;
   --color-charcoal: #1C1917;
   --color-warm-black: #111111;
@@ -19,7 +19,7 @@ html {
 }
 
 body {
-  background: #F4EFE4;
+  background: #FFFFFF;
   color: #1C1917;
   font-family: var(--font-space), 'Helvetica Neue', sans-serif;
 }
